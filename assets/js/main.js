@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
           (repo) => `
         <article class="project-card high">
           <div class="project-row">
-            <img src="${repo.avatar_url}?s=200" alt="${escapeHtml(repo.name)}" class="project-avatar" onerror="this.style.background='var(--ds-surface-container-low)';this.src=''">
+            <img src="${repo.name === 'cms' ? '../assets/images/logo-okcms.svg' : repo.avatar_url}?s=200" alt="${escapeHtml(repo.name)}" class="project-avatar" onerror="this.style.background='var(--ds-surface-container-low)';this.src=''">
             <div class="project-info">
               <h3 class="chamber-title">${escapeHtml(repo.name)}</h3>
               <p class="body-sm" style="color:var(--ds-on-surface-variant); margin-bottom:var(--ds-space-md);">
