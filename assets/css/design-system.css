@@ -444,6 +444,7 @@ svg {
   background: var(--ds-primary-container);
   color: var(--ds-on-primary-container);
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0);
+  padding: var(--ds-space-xs) var(--ds-space-sm);
 }
 
 .btn-primary:hover {
@@ -454,6 +455,7 @@ svg {
   background: var(--ds-surface-container-lowest);
   color: var(--ds-primary-container);
   border: 1px solid var(--ds-primary-container);
+  padding: var(--ds-space-xs) var(--ds-space-sm);
 }
 
 .btn-outline:hover {
