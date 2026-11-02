@@ -1,5 +1,5 @@
 // Oktis Works — Digital Alchemy & Modern Occult
-// Site institucional da organização
+// Site institucional — Hub de projetos
 
 document.addEventListener("DOMContentLoaded", () => {
   // Mobile nav toggle
@@ -8,10 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (toggle && nav) {
     toggle.addEventListener("click", () => {
       nav.classList.toggle("open");
-      toggle.setAttribute(
-        "aria-expanded",
-        nav.classList.contains("open")
-      );
+      toggle.setAttribute("aria-expanded", nav.classList.contains("open"));
     });
   }
 

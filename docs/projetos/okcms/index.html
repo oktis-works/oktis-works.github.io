@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OkCMS — Documentação | Oktis Works</title>
+  <meta name="description" content="Documentação completa do OkCMS: instalação, uso, plugins, temas, API e boas práticas.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/design-system.css">
+  <link rel="icon" href="../../assets/images/logo-org.png">
+</head>
+<body>
+  <header class="site-header level-1">
+    <div class="container header-inner">
+      <a href="../../index.html" class="brand">
+        <img src="../../assets/images/logo-org.png" alt="Oktis Works" class="brand-mark">
+        <span class="brand-name">Oktis Works</span>
+      </a>
+      <nav class="main-nav">
+        <a href="../../index.html">Início</a>
+        <a href="../index.html">Documentação</a>
+        <a href="index.html" class="active">OkCMS</a>
+        <a href="https://github.com/oktis-works/cms" target="_blank" class="nav-github">Repositório CMS</a>
+      </nav>
+      <button class="nav-toggle" aria-label="Abrir menu">☰</button>
+    </div>
+  </header>
+
+  <main class="section level-1">
+    <div class="container grid-12" style="gap:var(--ds-space-2xl);">
+      <!-- Sidebar — Câmara de Navegação -->
+      <aside style="grid-column: 1 / 4; border-right:1px solid var(--ds-outline-variant); padding-right:var(--ds-gutter); min-width:260px;">
+        <h3 class="headline-sm" style="color:var(--ds-surface-tint); text-transform:uppercase; letter-spacing:var(--ls-label-md); margin-bottom:var(--ds-space-lg);">OkCMS</h3>
+        <ul class="nav-list" style="list-style:none; display:flex; flex-direction:column; gap:var(--ds-space-xs);">
+          <li><a href="#introducao" class="body-md" style="color:var(--ds-on-surface-variant); display:block; padding:var(--ds-space-xs) 0; border-bottom:1px solid var(--ds-border-level1);">Introdução</a></li>
+          <li><a href="#instalacao" class="body-md" style="color:var(--ds-on-surface-variant); display:block; padding:var(--ds-space-xs) 0; border-bottom:1px solid var(--ds-border-level1);">Instalação</a></li>
+          <li><a href="#primeiros-passos" class="body-md" style="color:var(--ds-on-surface-variant); display:block; padding:var(--ds-space-xs) 0; border-bottom:1px solid var(--ds-border-level1);">Primeiros passos</a></li>
+          <li><a href="#plugins" class="body-md" style="color:var(--ds-on-surface-variant); display:block; padding:var(--ds-space-xs) 0; border-bottom:1px solid var(--ds-border-level1);">Plugins</a></li>
+          <li><a href="#temas" class="body-md" style="color:var(--ds-on-surface-variant); display:block; padding:var(--ds-space-xs) 0; border-bottom:1px solid var(--ds-border-level1);">Temas</a></li>
+          <li><a href="#api" class="body-md" style="color:var(--ds-on-surface-variant); display:block; padding:var(--ds-space-xs) 0; border-bottom:1px solid var(--ds-border-level1);">API</a></li>
+          <li><a href="#deploy" class="body-md" style="color:var(--ds-on-surface-variant); display:block; padding:var(--ds-space-xs) 0; border-bottom:1px solid var(--ds-border-level1);">Implantação</a></li>
+        </ul>
+      </aside>
+
+      <!-- Conteúdo Principal -->
+      <article style="grid-column: 4 / -1;">
+        <h1 id="introducao" class="display-lg">Documentação do OkCMS</h1>
+        <p class="lead body-lg" style="color:var(--ds-on-surface-variant); max-width:64ch;">Bem-vindo à documentação oficial do OkCMS, o CMS moderno, multi-tenant e extensível da Oktis Works.</p>
+
+        <section id="instalacao" style="margin-top:var(--ds-space-xl);">
+          <h2 class="headline-lg">1. Instalação</h2>
+          <p class="body-md" style="color:var(--ds-on-surface-variant);">O OkCMS é um monorepo baseado em <strong>Bun</strong>. Clone o repositório e instale as dependências:</p>
+          <pre style="background:var(--ds-surface-container-lowest); border:1px solid var(--ds-border-input); border-radius:var(--ds-radius); padding:var(--ds-space-lg); overflow-x:auto; margin:var(--ds-space-md) 0;"><code class="language-bash" style="font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-on-background);">git clone https://github.com/oktis-works/cms.git
+cd cms
+bun install</code></pre>
+          <p class="body-md" style="color:var(--ds-on-surface-variant);">Configure as variáveis de ambiente (banco de dados, Redis, segredos JWT) e rode as migrações:</p>
+          <pre style="background:var(--ds-surface-container-lowest); border:1px solid var(--ds-border-input); border-radius:var(--ds-radius); padding:var(--ds-space-lg); overflow-x:auto; margin:var(--ds-space-md) 0;"><code class="language-bash" style="font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-on-background);">cp .env.example .env
+# edite o .env com suas credenciais
+bun run db:migrate
+bun run dev</code></pre>
+        </section>
+
+        <section id="primeiros-passos" style="margin-top:var(--ds-space-xl);">
+          <h2 class="headline-lg">2. Primeiros passos</h2>
+          <p class="body-md" style="color:var(--ds-on-surface-variant);">Após iniciar o servidor, acesse o painel administrativo em <code style="color:var(--ds-primary-container);">http://localhost:3011/admin</code> e crie seu primeiro tenant. O OkCMS cria o tenant <code style="color:var(--ds-primary-container);">default</code> automaticamente no primeiro bootstrap.</p>
+          <h3 class="headline-sm" style="color:var(--ds-surface-tint); text-transform:uppercase; letter-spacing:var(--ls-label-md); margin:var(--ds-space-md) 0 var(--ds-space-sm) 0;">Criar uma coleção</h3>
+          <p class="body-md" style="color:var(--ds-on-surface-variant);">No admin, vá em <strong>Collections → Add Collection</strong>, defina o nome (ex.: <code style="color:var(--ds-primary-container);">posts</code>) e adicione campos (texto, rich text, imagem, data, etc.).</p>
+          <h3 class="headline-sm" style="color:var(--ds-surface-tint); text-transform:uppercase; letter-spacing:var(--ls-label-md); margin:var(--ds-space-md) 0 var(--ds-space-sm) 0;">Consumir via API</h3>
+          <p class="body-md" style="color:var(--ds-on-surface-variant);">Os dados ficam disponíveis em <code style="color:var(--ds-primary-container);">/api/v1/collections/{nome}</code> com autenticação via JWT ou API Key.</p>
+          <pre style="background:var(--ds-surface-container-lowest); border:1px solid var(--ds-border-input); border-radius:var(--ds-radius); padding:var(--ds-space-lg); overflow-x:auto; margin:var(--ds-space-md) 0;"><code class="language-bash" style="font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-on-background);">curl -H "Authorization: Bearer SEU_TOKEN" \
+  https://api.seudominio.com/api/v1/collections/posts</code></pre>
+        </section>
+
+        <section id="plugins" style="margin-top:var(--ds-space-xl);">
+          <h2 class="headline-lg">3. Plugins</h2>
+          <p class="body-md" style="color:var(--ds-on-surface-variant);">Plugins estendem o OkCMS com novos tipos de campo, admin components e integrações. Cada plugin precisa de um <code style="color:var(--ds-primary-container);">manifest.json</code> declarando:</p>
+          <ul style="list-style:none; margin:var(--ds-space-md) 0; color:var(--ds-on-surface-variant);">
+            <li style="margin-bottom:var(--ds-space-sm);"><span class="chip" style="font-size:var(--fs-body-sm); margin-right:var(--ds-space-sm);">name</span>nome, versão, tipo</li>
+            <li style="margin-bottom:var(--ds-space-sm);"><span class="chip" style="font-size:var(--fs-body-sm); margin-right:var(--ds-space-sm);">compatibility.okcms</span>range semver validado em tempo de carga</li>
+            <li style="margin-bottom:var(--ds-space-sm);"><span class="chip" style="font-size:var(--fs-body-sm); margin-right:var(--ds-space-sm);">fieldTypes[]</span>tipos de campo customizados</li>
+            <li style="margin-bottom:var(--ds-space-sm);"><span class="chip" style="font-size:var(--fs-body-sm); margin-right:var(--ds-space-sm);">permissions</span>permissões necessárias no manifesto</li>
+          </ul>
+          <p class="body-md" style="color:var(--ds-on-surface-variant);">Exemplo de manifesto mínimo:</p>
+          <pre style="background:var(--ds-surface-container-lowest); border:1px solid var(--ds-border-input); border-radius:var(--ds-radius); padding:var(--ds-space-lg); overflow-x:auto; margin:var(--ds-space-md) 0;"><code class="language-json" style="font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-on-background);">{
+  "name": "meu-plugin",
+  "version": "0.1.0",
+  "type": "plugin",
+  "compatibility": { "okcms": "^0.40.0" },
+  "fieldTypes": [],
+  "permissions": []
+}</code></pre>
+          <p class="body-md" style="color:var(--ds-on-surface-variant);">O loader do plugin valida a compatibilidade antes de importar o ponto de entrada, evitando que plugins incompatíveis quebrem o sistema.</p>
+        </section>
+
+        <section id="temas" style="margin-top:var(--ds-space-xl);">
+          <h2 class="headline-lg">4. Temas</h2>
+          <p class="body-md" style="color:var(--ds-on-surface-variant);">Temas são construídos com <strong>Astro</strong> e definidos em <code style="color:var(--ds-primary-container);">theme.json</code>. Eles podem herdar layouts de temas pais e isolam CSS por componente.</p>
+          <ul style="list-style:none; margin:var(--ds-space-md) 0; color:var(--ds-on-surface-variant);">
+            <li style="margin-bottom:var(--ds-space-sm);"><strong>layouts[]</strong> — layouts oferecidos pelo tema</li>
+            <li style="margin-bottom:var(--ds-space-sm);"><strong>assets[]</strong> — CSS/JS publicados</li>
+            <li style="margin-bottom:var(--ds-space-sm);"><strong>stylesConfig</strong> — engine de CSS e ponto de entrada</li>
+          </ul>
+          <p class="body-md" style="color:var(--ds-on-surface-variant);">Exemplo de <code style="color:var(--ds-primary-container);">theme.json</code>:</p>
+          <pre style="background:var(--ds-surface-container-lowest); border:1px solid var(--ds-border-input); border-radius:var(--ds-radius); padding:var(--ds-space-lg); overflow-x:auto; margin:var(--ds-space-md) 0;"><code class="language-json" style="font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-on-background);">{
+  "name": "default",
+  "version": "0.40.0",
+  "type": "theme",
+  "compatibility": { "okcms": "^0.40.0" },
+  "provides": { "layouts": ["page-home", "post", "single"] },
+  "stylesConfig": { "engine": "css", "entry": "src/theme.css", "output": "dist/theme.css" }
+}</code></pre>
+        </section>
+
+        <section id="api" style="margin-top:var(--ds-space-xl);">
+          <h2 class="headline-lg">5. Referência rápida da API</h2>
+          <table style="width:100%; border-collapse:collapse; margin:var(--ds-space-md) 0;">
+            <thead>
+              <tr>
+                <th style="padding:var(--ds-space-sm); border-bottom:1px solid var(--ds-border-level1); text-align:left; font-family:var(--ff-body); font-size:var(--fs-body-sm); font-weight:600; text-transform:uppercase; letter-spacing:var(--ls-label-sm); color:var(--ds-on-surface-variant);">Método</th>
+                <th style="padding:var(--ds-space-sm); border-bottom:1px solid var(--ds-border-level1); text-align:left; font-family:var(--ff-body); font-size:var(--fs-body-sm); font-weight:600; text-transform:uppercase; letter-spacing:var(--ls-label-sm); color:var(--ds-on-surface-variant);">Endpoint</th>
+                <th style="padding:var(--ds-space-sm); border-bottom:1px solid var(--ds-border-level1); text-align:left; font-family:var(--ff-body); font-size:var(--fs-body-sm); font-weight:600; text-transform:uppercase; letter-spacing:var(--ls-label-sm); color:var(--ds-on-surface-variant);">Descrição</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--ds-border-level1);">
+                <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-primary-container);">POST</td>
+                <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-on-background);">/api/v1/auth/login</td>
+                <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-on-surface-variant);">Autentica e retorna JWT</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--ds-border-level1);">
+                <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-primary-container);">GET</td>
+                <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-on-background);">/.well-known/jwks.json</td>
+                <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-on-surface-variant);">Chaves públicas JWKS para validação de JWT</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--ds-border-level1);">
+                <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-primary-container);">GET</td>
+                <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-on-background);">/api/v1/collections/:nome</td>
+                <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-on-surface-variant);">Lista itens de uma coleção</td>
+              </tr>
+              <tr>
+                <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-primary-container);">POST</td>
+                <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-on-background);">/api/v1/collections/:nome</td>
+                <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-on-surface-variant);">Cria item na coleção</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="body-md" style="color:var(--ds-on-surface-variant);">Todas as requisições mutantes exigem autenticação via <code style="color:var(--ds-primary-container);">Authorization: Bearer &lt;token&gt;</code> e respeitam o contexto de tenant da sessão.</p>
+        </section>
+
+        <section id="deploy" style="margin-top:var(--ds-space-xl);">
+          <h2 class="headline-lg">6. Implantação</h2>
+          <p class="body-md" style="color:var(--ds-on-surface-variant);">O OkCMS roda em containers Docker. Bancos suportados: <strong>PostgreSQL</strong> (principal), <strong>MySQL 8.0.36+</strong> e <strong>MariaDB 11.4+</strong>.</p>
+          <ul style="list-style:none; margin:var(--ds-space-md) 0; color:var(--ds-on-surface-variant);">
+            <li style="margin-bottom:var(--ds-space-sm);"><strong>API:</strong> <code style="color:var(--ds-primary-container);">apps/api</code> — servidor Hono</li>
+            <li style="margin-bottom:var(--ds-space-sm);"><strong>Admin:</strong> <code style="color:var(--ds-primary-container);">apps/admin</code> — SPA Astro servido estaticamente pela API em produção</li>
+            <li style="margin-bottom:var(--ds-space-sm);"><strong>Web:</strong> <code style="color:var(--ds-primary-container);">apps/web</code> — site público</li>
+            <li style="margin-bottom:var(--ds-space-sm);"><strong>Worker:</strong> <code style="color:var(--ds-primary-container);">apps/worker</code> — fila de jobs (imagens, e-mails, eventos)</li>
+          </ul>
+          <p class="body-md" style="color:var(--ds-on-surface-variant);">Variáveis críticas: <code style="color:var(--ds-primary-container);">DATABASE_URL</code>, <code style="color:var(--ds-primary-container);">REDIS_URL</code>, <code style="color:var(--ds-primary-container);">JWT_SECRET</code>, <code style="color:var(--ds-primary-container);">ENCRYPTION_KEY</code>, <code style="color:var(--ds-primary-container);">EXPOSE_POWERED_BY=false</code>.</p>
+        </section>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer level-1">
+    <div class="container header-inner" style="height:auto; padding:var(--ds-space-lg) 0; flex-direction:column; gap:var(--ds-space-md); text-align:center;">
+      <div class="footer-brand" style="display:inline-flex; align-items:center; gap:var(--ds-space-sm); font-family:var(--ff-display); font-size:var(--fs-headline-md); font-weight:700; letter-spacing:var(--ls-headline-md); color:var(--ds-on-background);">
+        <img src="../../assets/images/logo-org.png" alt="Oktis Works" class="brand-mark" style="width:32px;height:32px;">
+        <span class="brand-name">Oktis Works</span>
+      </div>
+      <p class="footer-copy" style="color:var(--ds-on-surface-variant); font-size:var(--fs-body-sm); margin:0;">Código aberto. Documentação aberta. Construído em público.</p>
+      <div class="footer-links" style="display:flex; gap:var(--ds-space-lg);">
+        <a href="../index.html" style="color:var(--ds-on-surface-variant); font-size:var(--fs-body-sm); font-weight:600; letter-spacing:var(--ls-label-sm); text-transform:uppercase;">Voltar à documentação</a>
+        <a href="https://github.com/oktis-works/cms" target="_blank" style="color:var(--ds-on-surface-variant); font-size:var(--fs-body-sm); font-weight:600; letter-spacing:var(--ls-label-sm); text-transform:uppercase;">Repositório CMS</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
