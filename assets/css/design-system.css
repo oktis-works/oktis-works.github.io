@@ -423,11 +423,9 @@ svg {
   justify-content: center;
   padding-top: var(--ds-space-md);
   padding-bottom: var(--ds-space-md);
-}
   align-items: center;
-  justify-content: center;
   gap: var(--ds-space-xs);
-  height: 40px;
+  height: 48px;
   padding: 0 var(--ds-space-lg);
   border: none;
   border-radius: var(--ds-radius);
@@ -439,6 +437,7 @@ svg {
   cursor: pointer;
   transition: all 0.2s ease;
   line-height: 1;
+  box-sizing: border-box;
 }
 
 .btn-primary {
