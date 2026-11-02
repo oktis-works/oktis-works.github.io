@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boas Práticas — OkCMS | Oktis Works</title>
+  <meta name="description" content="Boas práticas de segurança, desempenho e operação do OkCMS.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/design-system.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.85em' font-size='90' fill='%23e5c158'>🛡️</text></svg>">
+</head>
+<body>
+  <header class="site-header level-1">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand">
+        <span class="brand-mark">🌸</span>
+        <span class="brand-name">Oktis Works</span>
+      </a>
+      <nav class="main-nav">
+        <a href="../index.html">Início</a>
+        <a href="index.html">Documentação</a>
+        <a href="index.html" class="active">Boas Práticas</a>
+        <a href="../docs/referencia/index.html">Referência</a>
+      </nav>
+      <button class="nav-toggle" aria-label="Abrir menu">☰</button>
+    </div>
+  </header>
+
+  <main class="section level-1">
+    <div class="container grid-12">
+      <div style="grid-column: 1 / -1;">
+        <h1 class="display-lg">Boas Práticas</h1>
+        <p class="lead body-lg" style="color:var(--ds-on-surface-variant); max-width:64ch;">Recomendações de segurança, desempenho e operação para rodar o OkCMS em produção com confiança.</p>
+      </div>
+
+      <section id="seguranca" style="margin-top:var(--ds-space-xl);">
+        <h2 class="headline-lg">🔐 Segurança</h2>
+        <div class="grid-12" style="margin-top:var(--ds-space-lg);">
+          <div style="grid-column: span 6;">
+            <div class="chamber-tile high">
+              <div class="chamber-header">
+                <span class="chamber-cross">+</span>
+                <h3 class="chamber-title">Contexto de tenant rígido</h3>
+              </div>
+              <p class="body-sm" style="color:var(--ds-on-surface-variant);">Nunca use conexões sem tenant definido. O OkCMS remove o contexto global de fallback; acessos fora de <code style="color:var(--ds-primary-container);">establishTenantContext()</code> lançam erro, evitando vazamento entre tenants.</p>
+            </div>
+          </div>
+          <div style="grid-column: span 6;">
+            <div class="chamber-tile high">
+              <div class="chamber-header">
+                <span class="chamber-cross">+</span>
+                <h3 class="chamber-title">RLS (Row Level Security)</h3>
+              </div>
+              <p class="body-sm" style="color:var(--ds-on-surface-variant);">Todas as tabelas multi-tenant têm RLS habilitado. Aplicações nunca devem desabilitar RLS globalmente; use <code style="color:var(--ds-primary-container);">SET LOCAL row_security = off</code> apenas dentro de transações administrativas explícitas.</p>
+            </div>
+          </div>
+          <div style="grid-column: span 6;">
+            <div class="chamber-tile high">
+              <div class="chamber-header">
+                <span class="chamber-cross">+</span>
+                <h3 class="chamber-title">Cookies seguros em produção</h3>
+              </div>
+              <p class="body-sm" style="color:var(--ds-on-surface-variant);">A função <code style="color:var(--ds-primary-container);">validateProductionConfig()</code> rejeita inicialização com cookies sem <code style="color:var(--ds-primary-container);">Secure</code>, <code style="color:var(--ds-primary-container);">SameSite=Strict</code> ou <code style="color:var(--ds-primary-container);">JWT_SECRET</code> padrão. Não pule essa validação.</p>
+            </div>
+          </div>
+          <div style="grid-column: span 6;">
+            <div class="chamber-tile high">
+              <div class="chamber-header">
+                <span class="chamber-cross">+</span>
+                <h3 class="chamber-title">CSRF com protocolo obrigatório</h3>
+              </div>
+              <p class="body-sm" style="color:var(--ds-on-surface-variant);">Entradas em <code style="color:var(--ds-primary-container);">TRUSTED_ORIGINS</code> devem incluir protocolo (<code style="color:var(--ds-primary-container);">https://</code>). Host-only é rejeitado para evitar bypass.</p>
+            </div>
+          </div>
+          <div style="grid-column: span 6;">
+            <div class="chamber-tile high">
+              <div class="chamber-header">
+                <span class="chamber-cross">+</span>
+                <h3 class="chamber-title">CSP e X-Powered-By</h3>
+              </div>
+              <p class="body-sm" style="color:var(--ds-on-surface-variant);">O <code style="color:var(--ds-primary-container);">X-Powered-By</code> está desativado por padrão (ativa só via <code style="color:var(--ds-primary-container);">EXPOSE_POWERED_BY=true</code>). A API envia <code style="color:var(--ds-primary-container);">Content-Security-Policy: default-src 'none'</code>.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="desempenho" style="margin-top:var(--ds-space-xl);">
+        <h2 class="headline-lg">⚡ Desempenho</h2>
+        <div class="grid-12" style="margin-top:var(--ds-space-lg);">
+          <div style="grid-column: span 4;">
+            <div class="chamber-tile high">
+              <div class="chamber-header">
+                <span class="chamber-cross">+</span>
+                <h3 class="chamber-title">Rate limiting com Redis</h3>
+              </div>
+              <p class="body-sm" style="color:var(--ds-on-surface-variant);">Use armazenamento Redis (sorted sets com TTL) para limitação de taxa. Há fallback em memória apenas quando Redis está indisponível — não depende dele em produção.</p>
+            </div>
+          </div>
+          <div style="grid-column: span 4;">
+            <div class="chamber-tile high">
+              <div class="chamber-header">
+                <span class="chamber-cross">+</span>
+                <h3 class="chamber-title">Cache com tags</h3>
+              </div>
+              <p class="body-sm" style="color:var(--ds-on-surface-variant);">Use invalidação por tag (<code style="color:var(--ds-primary-container);">entity:123</code>, <code style="color:var(--ds-primary-container);">collection:posts</code>, <code style="color:var(--ds-primary-container);">tenant:abc</code>) em vez de chaves brutas.</p>
+            </div>
+          </div>
+          <div style="grid-column: span 4;">
+            <div class="chamber-tile high">
+              <div class="chamber-header">
+                <span class="chamber-cross">+</span>
+                <h3 class="chamber-title">Worker de fila separado</h3>
+              </div>
+              <p class="body-sm" style="color:var(--ds-on-surface-variant);">Processos pesados (redimensionamento de imagem, e-mails, eventos) rodam no <code style="color:var(--ds-primary-container);">apps/worker</code>, não na API principal.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="operacao" style="margin-top:var(--ds-space-xl);">
+        <h2 class="headline-lg">🛠 Operação</h2>
+        <ul style="list-style:none; margin:var(--ds-space-md) 0; color:var(--ds-on-surface-variant);">
+          <li style="margin-bottom:var(--ds-space-sm); border-bottom:1px solid var(--ds-border-level1); padding-bottom:var(--ds-space-sm);"><strong>Banco:</strong> use PostgreSQL com SSL em produção. MySQL e MariaDB são suportados, mas Postgres é o primário.</li>
+          <li style="margin-bottom:var(--ds-space-sm); border-bottom:1px solid var(--ds-border-level1); padding-bottom:var(--ds-space-sm);"><strong>Migrações:</strong> sempre rode o teste de aceitação de upgrade (<code style="color:var(--ds-primary-container);">postgres-upgrade-acceptance.mjs</code>) antes de aplicar novas versões.</li>
+          <li style="margin-bottom:var(--ds-space-sm); border-bottom:1px solid var(--ds-border-level1); padding-bottom:var(--ds-space-sm);"><strong>JWT:</strong> assine com RS256, use <code style="color:var(--ds-primary-container);">kid</code> e exposta as chaves públicas em <code style="color:var(--ds-primary-container);">/.well-known/jwks.json</code>. Habilite rotação de chaves com período de graça.</li>
+          <li style="margin-bottom:var(--ds-space-sm); border-bottom:1px solid var(--ds-border-level1); padding-bottom:var(--ds-space-sm);"><strong>Logs:</strong> não escreva senhas, tokens ou chaves em logs. Use estruturados (JSON) para facilitar ingestão em observabilidade.</li>
+          <li style="margin-bottom:var(--ds-space-sm); border-bottom:1px solid var(--ds-border-level1); padding-bottom:var(--ds-space-sm);"><strong>Monitoramento:</strong> acompanhe a DLQ (<code style="color:var(--ds-primary-container);">dead_letter_events</code>) e replaie eventos falhados manualmente após corrigir a causa.</li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer level-1">
+    <div class="container header-inner" style="height:auto; padding:var(--ds-space-lg) 0; flex-direction:column; gap:var(--ds-space-md); text-align:center;">
+      <div class="footer-brand" style="display:inline-flex; align-items:center; gap:var(--ds-space-sm); font-family:var(--ff-display); font-size:var(--fs-headline-md); font-weight:700; letter-spacing:var(--ls-headline-md); color:var(--ds-on-background);">
+        <span class="brand-mark">🌸</span>
+        <span class="brand-name">Oktis Works</span>
+      </div>
+      <p class="footer-copy" style="color:var(--ds-on-surface-variant); font-size:var(--fs-body-sm); margin:0;">Código aberto. Documentação aberta. Construído em público.</p>
+      <div class="footer-links" style="display:flex; gap:var(--ds-space-lg);">
+        <a href="../index.html" style="color:var(--ds-on-surface-variant); font-size:var(--fs-body-sm); font-weight:600; letter-spacing:var(--ls-label-sm); text-transform:uppercase;">Início</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

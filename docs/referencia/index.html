@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Referência da API — OkCMS | Oktis Works</title>
+  <meta name="description" content="Referência dos endpoints da API do OkCMS: autenticação, JWKS, collections e webhooks.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/design-system.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.85em' font-size='90' fill='%23e5c158'>🔗</text></svg>">
+</head>
+<body>
+  <header class="site-header level-1">
+    <div class="container header-inner">
+      <a href="../index.html" class="brand">
+        <span class="brand-mark">🌸</span>
+        <span class="brand-name">Oktis Works</span>
+      </a>
+      <nav class="main-nav">
+        <a href="../index.html">Início</a>
+        <a href="../docs/index.html">Documentação</a>
+        <a href="../docs/boas-praticas/index.html">Boas Práticas</a>
+        <a href="index.html" class="active">Referência</a>
+      </nav>
+      <button class="nav-toggle" aria-label="Abrir menu">☰</button>
+    </div>
+  </header>
+
+  <main class="section level-1">
+    <div class="container grid-12">
+      <div style="grid-column: 1 / -1;">
+        <h1 class="display-lg">Referência da API</h1>
+        <p class="lead body-lg" style="color:var(--ds-on-surface-variant); max-width:64ch;">Endpoints oficiais do OkCMS. Todos os caminhos estão sob <code style="color:var(--ds-primary-container);">/api/v1</code>, exceto os wells-known.</p>
+      </div>
+
+      <section id="autenticacao" style="margin-top:var(--ds-space-xl); grid-column: 1 / -1;">
+        <h2 class="headline-lg">Autenticação</h2>
+        <table style="width:100%; border-collapse:collapse; margin:var(--ds-space-md) 0;">
+          <thead>
+            <tr>
+              <th style="padding:var(--ds-space-sm); border-bottom:1px solid var(--ds-border-level1); text-align:left; font-family:var(--ff-body); font-size:var(--fs-body-sm); font-weight:600; text-transform:uppercase; letter-spacing:var(--ls-label-sm); color:var(--ds-on-surface-variant);">Método</th>
+              <th style="padding:var(--ds-space-sm); border-bottom:1px solid var(--ds-border-level1); text-align:left; font-family:var(--ff-body); font-size:var(--fs-body-sm); font-weight:600; text-transform:uppercase; letter-spacing:var(--ls-label-sm); color:var(--ds-on-surface-variant);">Endpoint</th>
+              <th style="padding:var(--ds-space-sm); border-bottom:1px solid var(--ds-border-level1); text-align:left; font-family:var(--ff-body); font-size:var(--fs-body-sm); font-weight:600; text-transform:uppercase; letter-spacing:var(--ls-label-sm); color:var(--ds-on-surface-variant);">Descrição</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--ds-border-level1);">
+              <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-primary-container);">POST</td>
+              <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-on-background);">/api/v1/auth/login</td>
+              <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-on-surface-variant);">Autentica usuário e retorna JWT assinado com RS256</td>
+            </tr>
+            <tr>
+              <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-primary-container);">POST</td>
+              <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-on-background);">/api/v1/auth/api-key</td>
+              <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-on-surface-variant);">Cria ou rotaciona API Keys de serviço</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="jwks" style="margin-top:var(--ds-space-xl); grid-column: 1 / -1;">
+        <h2 class="headline-lg">JWKS (JSON Web Key Set)</h2>
+        <table style="width:100%; border-collapse:collapse; margin:var(--ds-space-md) 0;">
+          <thead>
+            <tr>
+              <th style="padding:var(--ds-space-sm); border-bottom:1px solid var(--ds-border-level1); text-align:left; font-family:var(--ff-body); font-size:var(--fs-body-sm); font-weight:600; text-transform:uppercase; letter-spacing:var(--ls-label-sm); color:var(--ds-on-surface-variant);">Método</th>
+              <th style="padding:var(--ds-space-sm); border-bottom:1px solid var(--ds-border-level1); text-align:left; font-family:var(--ff-body); font-size:var(--fs-body-sm); font-weight:600; text-transform:uppercase; letter-spacing:var(--ls-label-sm); color:var(--ds-on-surface-variant);">Endpoint</th>
+              <th style="padding:var(--ds-space-sm); border-bottom:1px solid var(--ds-border-level1); text-align:left; font-family:var(--ff-body); font-size:var(--fs-body-sm); font-weight:600; text-transform:uppercase; letter-spacing:var(--ls-label-sm); color:var(--ds-on-surface-variant);">Descrição</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-primary-container);">GET</td>
+              <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-on-background);">/.well-known/jwks.json</td>
+              <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-on-surface-variant);">Retorna chaves públicas ativas para validação de JWT</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="body-md" style="color:var(--ds-on-surface-variant);">As chaves rotacionam automaticamente. Clientes devem buscar o JWKS periodicamente e fazer cache por <code style="color:var(--ds-primary-container);">kid</code>.</p>
+      </section>
+
+      <section id="collections" style="margin-top:var(--ds-space-xl); grid-column: 1 / -1;">
+        <h2 class="headline-lg">Collections</h2>
+        <table style="width:100%; border-collapse:collapse; margin:var(--ds-space-md) 0;">
+          <thead>
+            <tr>
+              <th style="padding:var(--ds-space-sm); border-bottom:1px solid var(--ds-border-level1); text-align:left; font-family:var(--ff-body); font-size:var(--fs-body-sm); font-weight:600; text-transform:uppercase; letter-spacing:var(--ls-label-sm); color:var(--ds-on-surface-variant);">Método</th>
+              <th style="padding:var(--ds-space-sm); border-bottom:1px solid var(--ds-border-level1); text-align:left; font-family:var(--ff-body); font-size:var(--fs-body-sm); font-weight:600; text-transform:uppercase; letter-spacing:var(--ls-label-sm); color:var(--ds-on-surface-variant);">Endpoint</th>
+              <th style="padding:var(--ds-space-sm); border-bottom:1px solid var(--ds-border-level1); text-align:left; font-family:var(--ff-body); font-size:var(--fs-body-sm); font-weight:600; text-transform:uppercase; letter-spacing:var(--ls-label-sm); color:var(--ds-on-surface-variant);">Descrição</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid var(--ds-border-level1);">
+              <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-primary-container);">GET</td>
+              <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-on-background);">/api/v1/collections/:nome</td>
+              <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-on-surface-variant);">Lista itens (paginado, com filtros)</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--ds-border-level1);">
+              <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-primary-container);">POST</td>
+              <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-on-background);">/api/v1/collections/:nome</td>
+              <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-on-surface-variant);">Cria um novo item</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--ds-border-level1);">
+              <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-primary-container);">GET</td>
+              <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-on-background);">/api/v1/collections/:nome/:id</td>
+              <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-on-surface-variant);">Obtém um item por ID</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--ds-border-level1);">
+              <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-primary-container);">PATCH</td>
+              <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-on-background);">/api/v1/collections/:nome/:id</td>
+              <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-on-surface-variant);">Atualiza item parcialmente</td>
+            </tr>
+            <tr>
+              <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-primary-container);">DELETE</td>
+              <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-on-background);">/api/v1/collections/:nome/:id</td>
+              <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-on-surface-variant);">Remove item (soft delete quando suportado)</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="field-types" style="margin-top:var(--ds-space-xl); grid-column: 1 / -1;">
+        <h2 class="headline-lg">Tipos de campo</h2>
+        <p class="body-md" style="color:var(--ds-on-surface-variant);">Lista os tipos de campo registrados (built-ins + plugins):</p>
+        <table style="width:100%; border-collapse:collapse; margin:var(--ds-space-md) 0;">
+          <thead>
+            <tr>
+              <th style="padding:var(--ds-space-sm); border-bottom:1px solid var(--ds-border-level1); text-align:left; font-family:var(--ff-body); font-size:var(--fs-body-sm); font-weight:600; text-transform:uppercase; letter-spacing:var(--ls-label-sm); color:var(--ds-on-surface-variant);">Método</th>
+              <th style="padding:var(--ds-space-sm); border-bottom:1px solid var(--ds-border-level1); text-align:left; font-family:var(--ff-body); font-size:var(--fs-body-sm); font-weight:600; text-transform:uppercase; letter-spacing:var(--ls-label-sm); color:var(--ds-on-surface-variant);">Endpoint</th>
+              <th style="padding:var(--ds-space-sm); border-bottom:1px solid var(--ds-border-level1); text-align:left; font-family:var(--ff-body); font-size:var(--fs-body-sm); font-weight:600; text-transform:uppercase; letter-spacing:var(--ls-label-sm); color:var(--ds-on-surface-variant);">Descrição</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-primary-container);">GET</td>
+              <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-on-background);">/api/v1/field-types</td>
+              <td style="padding:var(--ds-space-sm); font-family:var(--ff-body); font-size:var(--fs-body-sm); color:var(--ds-on-surface-variant);">Retorna registro de tipos de campo disponíveis</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="nota" style="margin-top:var(--ds-space-xl); grid-column: 1 / -1;">
+        <div class="chamber-tile high">
+          <div class="chamber-header">
+            <span class="chamber-cross">!</span>
+            <h3 class="chamber-title">Autenticação obrigatória</h3>
+          </div>
+          <p class="body-sm" style="color:var(--ds-on-surface-variant);">Requisições que modificam dados exigem header <code style="color:var(--ds-primary-container);">Authorization: Bearer &lt;token&gt;</code> ou <code style="color:var(--ds-primary-container);">X-API-Key</code>. O contexto do tenant é injetado automaticamente a partir da sessão autenticada.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer level-1">
+    <div class="container header-inner" style="height:auto; padding:var(--ds-space-lg) 0; flex-direction:column; gap:var(--ds-space-md); text-align:center;">
+      <div class="footer-brand" style="display:inline-flex; align-items:center; gap:var(--ds-space-sm); font-family:var(--ff-display); font-size:var(--fs-headline-md); font-weight:700; letter-spacing:var(--ls-headline-md); color:var(--ds-on-background);">
+        <span class="brand-mark">🌸</span>
+        <span class="brand-name">Oktis Works</span>
+      </div>
+      <p class="footer-copy" style="color:var(--ds-on-surface-variant); font-size:var(--fs-body-sm); margin:0;">Código aberto. Documentação aberta. Construído em público.</p>
+      <div class="footer-links" style="display:flex; gap:var(--ds-space-lg);">
+        <a href="../index.html" style="color:var(--ds-on-surface-variant); font-size:var(--fs-body-sm); font-weight:600; letter-spacing:var(--ls-label-sm); text-transform:uppercase;">Início</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
