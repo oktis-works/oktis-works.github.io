@@ -32,12 +32,34 @@ document.addEventListener("DOMContentLoaded", () => {
         (r) => !r.archived && r.name !== "oktis-works.github.io"
       );
 
-      projectsList.innerHTML = visible
+      // Busca detalhes individuais de cada repositório para obter avatar próprio
+      const repoDetails = await Promise.all(
+        visible.map(async (repo) => {
+          try {
+            const detailRes = await fetch(
+              `https://api.github.com/repos/oktis-works/${repo.name}`,
+              {
+                headers: { Accept: "application/vnd.github+json" },
+                cache: "no-store",
+              }
+            );
+            if (detailRes.ok) {
+              const detail = await detailRes.json();
+              return { ...repo, avatar_url: detail.owner.avatar_url };
+            }
+          } catch (e) {
+            // ignora erro individual e continua com avatar da listagem
+          }
+          return repo;
+        })
+      );
+
+      projectsList.innerHTML = repoDetails
         .map(
           (repo) => `
         <article class="project-card high">
           <div class="project-row">
-            <img src="${repo.owner.avatar_url}&s=200" alt="${escapeHtml(repo.name)}" class="project-avatar">
+            <img src="${repo.avatar_url}?s=200" alt="${escapeHtml(repo.name)}" class="project-avatar" onerror="this.style.background='var(--ds-surface-container-low)';this.src=''">
             <div class="project-info">
               <h3 class="chamber-title">${escapeHtml(repo.name)}</h3>
               <p class="body-sm" style="color:var(--ds-on-surface-variant); margin-bottom:var(--ds-space-md);">

@@ -421,6 +421,8 @@ svg {
 .project-actions .btn {
   width: 100%;
   justify-content: center;
+  padding-top: var(--ds-space-md);
+  padding-bottom: var(--ds-space-md);
 }
   align-items: center;
   justify-content: center;
