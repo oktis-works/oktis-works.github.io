@@ -35,20 +35,24 @@ document.addEventListener("DOMContentLoaded", () => {
       projectsList.innerHTML = visible
         .map(
           (repo) => `
-        <article class="chamber-tile high">
-          <div class="chamber-header">
-            <span class="chamber-cross">+</span>
-            <h3 class="chamber-title">${escapeHtml(repo.name)}</h3>
+        <article class="project-card high">
+          <div class="project-row">
+            <img src="${repo.owner.avatar_url}&s=200" alt="${escapeHtml(repo.name)}" class="project-avatar">
+            <div class="project-info">
+              <h3 class="chamber-title">${escapeHtml(repo.name)}</h3>
+              <p class="body-sm" style="color:var(--ds-on-surface-variant); margin-bottom:var(--ds-space-md);">
+                ${escapeHtml(repo.description || "Sem descrição")}
+              </p>
+              <div class="project-meta">
+                <span class="chip">${escapeHtml(repo.language || "—")}</span>
+                <span class="chip" style="border-color:var(--ds-border-level1); color:var(--ds-on-surface-variant);">⭐ ${repo.stargazers_count}</span>
+                <span class="chip" style="border-color:var(--ds-border-level1); color:var(--ds-on-surface-variant);">🍴 ${repo.forks_count}</span>
+              </div>
+            </div>
           </div>
-          <p class="body-sm" style="color:var(--ds-on-surface-variant); margin-bottom:var(--ds-space-md);">
-            ${escapeHtml(repo.description || "Sem descrição")}
-          </p>
-          <div style="display:flex; gap:var(--ds-space-xs); flex-wrap:wrap; margin-bottom:var(--ds-space-md);">
-            <span class="chip">${escapeHtml(repo.language || "—")}</span>
-            <span class="chip" style="border-color:var(--ds-border-level1); color:var(--ds-on-surface-variant);">⭐ ${repo.stargazers_count}</span>
-            <span class="chip" style="border-color:var(--ds-border-level1); color:var(--ds-on-surface-variant);">🍴 ${repo.forks_count}</span>
+          <div class="project-actions">
+            <a href="${repo.html_url}" target="_blank" class="btn btn-outline">Abrir no GitHub</a>
           </div>
-          <a href="${repo.html_url}" target="_blank" class="btn btn-outline">Abrir no GitHub</a>
         </article>
       `
         )
